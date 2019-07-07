@@ -203,7 +203,7 @@ class Graph:
         for edge in self.edges:
             edge.val = val
 
-    def draw(self, weighted=False):
+    def draw(self, weighted=False, dot_output=False):
 
         # Make graph & fill data for .dot output
         g = nx.Graph()
@@ -228,7 +228,8 @@ class Graph:
             nx.draw_networkx_edge_labels(g, pos=pos, edge_labels=elab_map)
 
         # Save & show
-        nx.drawing.nx_pydot.write_dot(g, 'fig.dot')
+        if dot_output:
+            nx.drawing.nx_pydot.write_dot(g, 'fig.dot')
         plt.axis('off')
         plt.savefig('fig.png')
         plt.show()
