@@ -32,6 +32,9 @@ class Node:
         oth.nedges.append(e)
         return e
 
+    def is_leave(self):
+        return len(self.neighbs) == 1
+
     def __repr__(self):
         return '({}: {}{}{})'.format(
             self.num,
@@ -203,7 +206,7 @@ class Graph:
         for edge in self.edges:
             edge.val = val
 
-    def draw(self, weighted=False, dot_output=False):
+    def draw(self, weighted=False, dot_output=False, interactive=True):
 
         # Make graph & fill data for .dot output
         g = nx.Graph()
@@ -232,10 +235,12 @@ class Graph:
             nx.drawing.nx_pydot.write_dot(g, 'fig.dot')
         plt.axis('off')
         plt.savefig('fig.png')
-        plt.show()
+        if interactive:
+            plt.show()
+        plt.clf()
 
     def __repr__(self):
-        return '\n'.join(str(node) for node in self.nodes[1:])
+        return '\n'.join(str(node) for node in self.nodes)
 
     def __getitem__(self, i):
         return self.nodes[i - self.OFFSET]
